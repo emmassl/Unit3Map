@@ -1,0 +1,635 @@
+<!-- The originial version of this template was made by Johnathan Soma and then messed with and customized by Aaron Reiss and Emma Slagle! -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* ─────────────────────────────────────────
+        HERO
+      ───────────────────────────────────────── */
+      .hero {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .hero__img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero__scrim {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.32);
+      }
+
+      .hero__text {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        text-align: center;
+        padding: 0 1.5rem 11.5rem;
+      }
+
+      .hero__headline {
+        font-family: "American Typewriter", "ITC American Typewriter", serif;
+        font-weight: 400;
+        font-size: clamp(3rem, 6vw, 5rem);
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        color: #fff;
+        max-width: 400vw;
+        margin-bottom: 0.4rem;
+      }
+
+      .hero__subhead {
+        font-family: "NYTFranklinLight", sans-serif;
+        font-weight: 400;
+        font-size: clamp(1rem, 2vw, 1.4rem);
+        line-height: 1.4;
+        letter-spacing: 0.02em;
+        color: rgba(255, 255, 255, 0.88);
+        max-width: 300vw;
+        margin-bottom: 1rem;
+      }
+
+      .hero__byline {
+        font-family: "NYTFranklinLight", sans-serif;
+        font-weight: 400;
+        font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .hero__date {
+        font-family: "NYTFranklinLight", sans-serif;
+        font-weight: 400;
+        font-size: clamp(0.7rem, 1vw, 0.85rem);
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.5);
+        /* margin-top: 0.3rem; */
+      }
+      /* ─────────────────────────────────────────
+        Scrollytelling
+      ───────────────────────────────────────── */
+      .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: palevioletred;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .modal-content {
+        background: rgb(255, 226, 226);
+        padding: 2rem;
+        max-width: 400px;
+        border-radius: 8px;
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 14px;
+      }
+
+      .modal button {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+      }
+      
+      h1{
+        max-width: 50%;
+        margin: 4rem auto 2rem auto;
+        }
+      
+      p{
+        max-width: 50%;
+        font-family: "NYTFranklinLight", sans-serif;
+        margin: 0 auto 2rem auto;
+        font-size: 19px;
+      }
+      
+      #scrolly {
+        position: relative;
+        padding: 1rem;
+      }
+
+      .scrolly-overlay {
+        position: relative;
+        padding: 0;
+        max-width: 35rem;
+        margin-left: 2px;
+        margin-right: auto;
+      }
+
+      .sticky-thing {
+        position: -webkit-sticky;
+        position: sticky;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        z-index: 0;
+        top: 0;
+        height: 100vh;
+        /* Center everything inside */
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .step {
+        margin: 0 auto 2rem auto;
+        margin-bottom: 25rem;
+        background-color: #eee;
+        background-color: #fff;
+        color: black;
+        text-align: center;
+        /* border: 3px solid red; */
+      }
+
+      .step p {
+        padding: 1rem;
+        font-size: 1.25rem;
+        border: black;
+      }
+
+      #zoomBox, #zoomBox2, #zoomBox3, #zoomBox4, #zoomBox5 {
+          overflow: clip;    
+          margin-left: 44vw !important;
+          max-width: 53vw !important;
+          max-height: none !important;
+      }
+      
+      .photoDiv {
+        max-width: 100%;
+        max-height: 90vh;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+        object-fit: contain;
+        transition:
+          margin 1.5s 0s,
+          transform 2.5s 0s;
+      }
+
+      .glow-image {
+        /* box-shadow: h-offset v-offset blur spread color; */
+        box-shadow: 0 0 20px 5px #e06f91;
+      }
+      .call-transcript {
+      max-width: 52rem;
+      margin: 3rem auto;
+      font-family: "NYTFranklinLight", sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+
+    .call-transcript .msg {
+      max-width: 45%;
+      padding: 0.4rem 0;
+      margin: 0.4rem 0;
+    }
+
+    /* Doug on the left */
+    .call-transcript .them {
+      text-align: left;
+      margin-right: auto;
+      color: #333;
+    }
+
+    /* You on the right */
+    .call-transcript .me {
+      text-align: right;
+      margin-left: auto;
+      color: #666;
+    }
+
+    .post-call {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      max-width: 75rem;
+      margin: 6rem auto;
+      padding: 0 4%;
+    }
+
+    .post-call__text {
+      flex: 1;
+      font-family: "NYTFranklinLight", sans-serif;
+    }
+
+    .post-call__text p {
+      max-width: none;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .post-call__image {
+      flex: 1;
+    }
+
+    .post-call__image img {
+      width: 100%;
+      max-width: 450px;
+      display: block;
+      margin: 0 auto;
+    }
+
+
+      @font-face {
+      font-family: "NYTFranklinLight";
+      src: url("fonts/NYTFranklinLight.otf") format("truetype");
+      }
+
+      /* When it's less than 700 pixels wide, do normal scrollytelling */
+      @media only screen and (min-width: 700px) {
+        .post-call {
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        #scrolly.side-by-side, #scrolly2.side-by-side {
+          display: flex;
+        }
+
+        #scrolly.side-by-side > div {
+          flex-basis: 0;
+          flex-grow: 1;
+          flex-shrink: 1;
+          padding: 0.75em;
+        }
+
+        #scrolly.side-by-side .scrolly-overlay {
+          margin-top: 70vh;
+          order: 0;
+          /* Change these to adjust sizing options */
+          min-width: 15rem;
+          max-width: 20rem;
+        }
+
+        #scrolly.side-by-side .sticky-thing {
+          order: 1;
+          flex-grow: 2;
+        }
+      }
+    </style>
+		<script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/3.0.4/scrollama.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.3.0/d3.min.js"></script>
+  </head>
+
+  <body>
+  <!-- ═══════════════════════════════════════
+    HERO/TITLE CARD
+    ═══════════════════════════════════════ -->
+    <div class="hero">
+      <img class="hero__img" src="images/intro/title.jpeg">
+      <div class="hero__scrim"></div>
+      <div class="hero__text">
+        <h1 class="hero__headline">Looking for<br>Doug B</h1>
+        <p class="hero__subhead">A trail of 250 stickers, five-dollar candles,<br>and a parking lot in Branford, CT.</p>
+        <p class="hero__byline">By Emma Slagle</p>
+        <p class="hero__date">APRIL 21, 2026</p>
+      </div>
+    </div>
+
+  <!-- <p>This is a template for a scrollytelling experience that basically puts an image element on the webpage in the html (you can see it in the code below here, it's called scrollyPhoto) and then uses different scrolly steps (step1, step2, etc) to change the image that shows up in the image element. You change the image that shows up by changing the "src" that the image element looks for.</p>
+  <p>This template will help cheat a kind of scrolly telling map that "changes" as you scroll.</p> -->
+  <!-- ═══════════════════════════════════════
+    INTRODUCTION
+    ═══════════════════════════════════════ -->
+      <section id="scrolly">
+        <div class="sticky-thing">
+          <div id="zoomBox">
+<!-- Sticky Thing 1 goes below this line -->
+            <img id="scrollyPhoto" class="photoDiv" src="images/intro/photos.jpg">
+<!-- Sticky Thing 1 goes above this line -->
+          </div>        
+        </div>
+        <div class="scrolly-overlay">
+          <div class="step" id="step1">
+            <p>I'm someone that takes a lot of photos, and I mean a lot.</p>
+          </div>
+          <div class="step" id="step2">
+            <p>Most are of things others might just walk past, brushing off as peculiar— like a sculpture of a crouching body with a giant tongue for a torso, planted on a pier sidewalk in East Boston.</p>
+          </div>
+          <div class="step" id="step3">
+            <p>Or a wall decal inside a stall of the women's bathroom in the Yale School of Art, narrating the potential experiences one might have while relieving oneself.</p>
+          </div>
+          <div class="step" id="step4">
+            <p>Or this cry for help disguised in the form of a flyer calling for small teacups...</p>
+          </div>
+          <!-- <div class="step" id="step4">
+            <p>Or this cry for help disguised in the form of a flyer calling for small teacups...</p>
+            <img src="images/kento.png" style="max-width: 300px; margin: 0 auto">
+          </div> -->
+      </section>
+      <div style="padding: 4%;">
+        <p>I take note of these things, I document them, and I have since first getting a phone in the 6th grade (hence the 200,000+ image camera roll).</p> 
+        <p>It was only natural then, that I finally snapped a photo of my first “<span style="font-family: 'American Typewriter', 'ITC American Typewriter', serif;">Doug B Candles</span>” sticker this past fall, walking down a street in East Rock— in the same typewriter font I'd been seeing in passing since freshman year.</p>
+      </div>
+      <img src="images/intro/firstdoug.jpg" style="max-width: 300px; margin: 0 auto; display: block;">    
+      <div style="padding: 4%;">
+        <p>Holding no website, phone number, or QR code, just a name, a product, and an immense air of intrigue— who is Doug B, and how is he selling these candles?</p>  
+  <!-- ═══════════════════════════════════════
+    BEAT 1: THE STICKER TRAIL
+    ═══════════════════════════════════════ -->
+      <p>After taking this photo, my curiosity grew. I kept noticing these stickers, more intensely than before, and more than I could ignore. I needed to find Doug B, and the first step lay in navigating and narrowing down his territory. 
+        How many stickers were there, and could they lead me to Doug himself? I enlisted my friend Cade to traverse the city with me to find out.</p>
+    </div>
+          <section id="scrolly2">
+            <div class="sticky-thing">
+              <div id="zoomBox2">
+    <!-- Sticky Thing 5 goes below this line -->
+                <img id="scrollyPhoto2" class="photoDiv" src="images/sticker/map0.jpg">
+    <!-- Sticky Thing 5 goes above this line -->
+              </div>        
+            </div>
+            <div class="scrolly-overlay">
+              <div class="step" id="step5">
+                <p>We started at the corner of Prospect and Sachem, and found our first Doug B sticker within minutes on a parking pole.</p>
+                <img src="images/sticker/firststicker.jpeg" style="max-width: 300px; margin: 0 auto" class="glow-image">
+              </div>
+              <div class="step" id="step6">
+                <p>As we continued to walk north, the numbers only bloomed.</p>
+              </div>
+              <div class="step" id="step7">
+                <p>Some stickers even appeared in tight groups right next to one another, almost impossible to miss.</p>
+                <img src="images/sticker/three.jpeg" style="max-width: 400px; margin: 0 auto" class="glow-image">
+              </div>
+              <div class="step" id="step8">
+                <p>Most of the stickers were legible, but on State street, they were different, peeled at the corners, faded, some torn down the middle. Many were almost gone, just residue left behind.
+                We didn't know if someone's been removing them, or if they're just older than the rest. Either way, State street felt like the edge of something.</p>
+                <img src="images/sticker/state.jpeg" style="max-width: 300px; margin: 0 auto" class="glow-image">
+              </div>
+              <div class="step" id="step9">
+                <p>Making our way south, the numbers continued to multiply: on lampposts, telephone poles, electrical boxes, on the sides of crosswalk buttons, when we thought it couldn't get any more populated, we encountered the Court Street bridge. 
+                  Every railing. One after another, all the way across, on both sides, filled with Doug B stickers.</p>
+                  <video src="images/sticker/bridge.mov" style="max-width: 500px; margin: 0 auto" class="glow-image" autoplay muted loop playsinline></video>
+              </div>
+              <div class="step" id="step10">
+                <p>By the end of the walk, we had counted two hundred and fifty. East Rock, Little Italy, Wooster. Just about three and a half hours, 250 stickers along a single afternoon's path. We found Doug B territory, but still no Doug B.</p>
+              </div>
+          </section>
+
+    <!-- ═══════════════════════════════════════
+    BEAT 2: THE INTERNET SEARCH
+    ═══════════════════════════════════════ -->
+    <div style="padding: 4%;">
+      <p><p>I asked more than 30 friends, colleagues and new haven locals, and only two had noticed this sticker before, nobody knew who Doug B Candles was. In 2026, how do you sell something with just a name and a product?</p></p>
+      <p>I turned to the internet to find out more, and it turns out there, I wasn’t the only one curious about Doug B. Scattered across Reddit and Facebook, strangers had been quietly marveling at him for years.</p>
+    </div>
+    <section id="scrolly3">
+      <div class="sticky-thing">
+        <div id="zoomBox3">
+<!-- Sticky Thing 5 goes below this line -->
+          <img id="scrollyPhoto3" class="photoDiv" src="images/search/rEasterC.png">
+<!-- Sticky Thing 5 goes above this line -->
+        </div>        
+      </div>
+      <div class="scrolly-overlay">
+        <div class="step" id="step11">
+          <p>Even on the forums, Doug had already become something mythical. One user compared him to the Easter Bunny.</p>
+        </div>
+        <div class="step" id="step12">
+          <p>And was building a reputation.</p>
+        </div>
+        <div class="step" id="step13">
+          <p>Buried one reddit thread was my first clue, rumoring he frequents Willoughbby's, a coffee shop in Branford.</p>
+        </div>
+        <div class="step" id="step14">
+          <p>So I called <span style="color: #1987d1">Willoughby's</span>. They knew who he was, but he didn't sell there, and they weren't even sure if he was still active. They suggested I try calling Common Grounds.</p>
+      </div>
+        <div class="step" id="step15">
+          <p><span style="color: #7eb150;">Common Grounds</span> had claimed they never heard of him— it was a short conversation. They hung up, and I was back at square one.</p>
+        </div>
+        <div class="step" id="step16">
+          <p>Another Facebook post mentioned that his candles were sold at <span style="color: #ff4e4c">Nuzzo's Farm</span>, a wedding venue. I called, and they knew him, but emphasized they had no affiliation. Another dead end, and by this point, I could feel there was something nobody was telling me, a story or moment about our guy I just wasn't privy to yet.</p>
+        </div>
+        <div class="step" id="step17">
+          <p>The last rumor was the most specific: someone on Facebook had posted that Doug hangs around <span style="color: #6739ba">Branford Stop & Shop</span> around 9 p.m. I called the store. They transferred me to the manager.
+            She told me he was well known around there, but she just couldn't explain why. "You could try calling the Branford police for more information," she said.</p>
+        </div>
+        <div class="step" id="step18">
+          <p>I did not call the Branford police.</p>
+        </div>
+        <div class="step" id="step19">
+          <p>At last I found my most essential clue on a Facebook forum, Doug's number.</p>
+        </div>
+    </section>
+        <div style="padding: 4%;">
+          <p>So I called. No answer. I called again. Still nothing. Then, less than a minute later, my phone rang.</p>
+        </div>
+    <!-- ═══════════════════════════════════════
+    BEAT 3: THE CALL & MEETING
+    ═══════════════════════════════════════ -->
+    <section id="scrolly4">
+      <div class="call-transcript">
+
+        <div class="msg them">Hello, who is this?</div>
+        <div class="msg me">Hi, this is Emma— is this Doug B?</div>
+        <div class="msg them">Yes.</div>
+        <div class="msg me">Great! I've been seeing your stickers around New Haven, and I was hoping to buy a candle.</div>
+        <div class="msg them">Oh yeah, I got concerned because my phone said you were in Hawaii.</div>
+        <div class="msg me">Yes, sorry, I am from Hawaii.</div>
+        <div class="msg them">I thought you were spam.</div>
+        <div class="msg me">No, I live in New Haven now.</div>
+        <div class="msg them">Okay. Well, what candle are you looking for?</div>
+        <div class="msg me">I read you have a really lovely nice white rose.</div>
+        <div class="msg them">Oh, I'll have to check— the scents come from China and I might be out. Where exactly in New Haven are you?</div>
+        <div class="msg me">East Rock.</div>
+        <div class="msg them">Oh, well I'm in Branford.</div>
+        <div class="msg me">I'm fine with meeting in New Haven, or I can come out.</div>
+        <div class="msg them">I usually meet people— you know where Nonna's restaurant is in Branford?</div>
+        <div class="msg me">No, but I can find it.</div>
+        <div class="msg them">It's right across from the town dump. I usually meet people in the parking lot there. Do you like Christmas tree?</div>
+        <div class="msg me">Yes, but I'm more into floral scents.</div>
+        <div class="msg them">Floral, okay. I just made a large batch, and they sell out quickly. I'll make you a floral one. I'll call you when it's done— should be a day or two. Thank you for calling, Emma.</div>
+      </div>
+      <!-- Post-call: nonna's zoom scrollytelling -->
+      <!-- Post-call: pickup confirmation -->
+      <section class="post-call">
+        <div class="post-call__text">
+          <p>He called back the next day. We confirmed a cash-only 5 p.m. pickup at <span style="color: #e6ce1e">Nonna Gina's</span>, the day after that.</p>
+        </div>
+        <div class="post-call__image">
+          <img src="images/search/smap6.jpeg">
+        </div>
+      </section>
+      
+    <!-- ═══════════════════════════════════════
+    BEAT 4: THE END
+    ═══════════════════════════════════════ -->
+    <div style="padding: 4%;">
+      <p>I brought Cade, along with our friend Kristjan to drive us out. Five p.m, Thursday, Nonna Gina's parking lot, right across from the Branford town dump, right on time, exactly where he said it would be, and Doug was already there when we pulled in. He was wearing Doug B head to toe— a "Doug B Candles" hat, t-shirt, both with that same typewriter font I'd been following around New Haven for months, and even his jeans were marked "Doug B" in sharpie. We learned Doug B was an an ex-trucker turned candle man, and ended up standing in the parking lot for almost thirty minutes takling with him about 80s music, The Cure, The Smiths, Culture Club, and his immense passion for it.
+        I asked him how the stickers got everywhere, and how he'd managed it, but he wouldn't say. "I don't know, little minions. I don't disclose the secret." he told me.
+    </div>
+    <img src="images/end/meeting.jpeg" style="max-width: 600px; margin: 0 auto; display: block;">    
+    <div style="padding: 4%;">
+      <p>Holding no website, phone number, or QR code, just a name, a product, and an immense air of intrigue— who is Doug B, and how is he selling these candles?</p>  
+    
+    </div>
+    <!-- Mobile Warning Modal -->
+    <div id="deviceModal" class="modal">
+      <div class="modal-content">
+        <span>
+          Wow! One of your friends must be in Aaron Reiss's "Telling Stories With Maps" class — how cool! <br><br> Sadly, this site is meant to be viewed on a computer, so if you are on a phone or tablet then it's gonna look all kinds of wonky and you might get the wrong impression about how amazing this work is.
+        </span>
+        <button id="continueBtn">Continue Anyway</button>
+      </div>
+    </div>
+
+<script>
+
+/* Scrollytelling code goes under here */
+
+  // Code for the Photo Div #1 (aka #scrollyPhoto1)
+    // Entering Step One
+  d3.select("#step1").on('stepin',function(e) {
+    console.log("We've arrived at STEP ONE in the photo div")
+    d3.select("#scrollyPhoto").attr("src", "images/intro/photos.jpg"
+    );
+    // d3.select("#scrollyPhoto").style("transform", "scale(2.9) translate(0%, -10%)");
+  })
+    // Entering Step Two
+    d3.select("#step2").on('stepin',function(e) {
+    console.log("We've arrived at STEP TWO in the photo div")
+    d3.select("#scrollyPhoto").attr("src", "images/intro/tongue.jpeg");
+  })
+    // Entering Step Three
+    d3.select("#step3").on('stepin',function(e) {
+    console.log("We've arrived at STEP Three in the photo div")
+    d3.select("#scrollyPhoto").attr("src", "images/intro/ysoa.jpeg");
+  })
+    // Entering Step Four
+    d3.select("#step4").on('stepin',function(e) {
+    console.log("We've arrived at STEP Four in the photo div")
+    d3.select("#scrollyPhoto").attr("src", "images/intro/flyer.jpeg");
+  })
+    // Entering Step Five
+    d3.select("#step5").on('stepin', function(e) {
+    d3.select("#scrollyPhoto2").attr("src", "images/sticker/map1.jpg");
+  })
+    // Entering Step Six
+  d3.select("#step6").on('stepin', function(e) {
+    d3.select("#scrollyPhoto2").attr("src", "images/sticker/map2.jpg");
+  })
+    // Entering Step Seven
+  d3.select("#step7").on('stepin', function(e) {
+    d3.select("#scrollyPhoto2").attr("src", "images/sticker/map3.jpg");
+  })
+    // Entering Step Eight
+  d3.select("#step8").on('stepin', function(e) {
+    d3.select("#scrollyPhoto2").attr("src", "images/sticker/map4.jpg");
+  })
+    // Entering Step Nine
+  d3.select("#step9").on('stepin', function(e) {
+    d3.select("#scrollyPhoto2").attr("src", "images/sticker/map5.jpg");
+  })
+    // Entering Step Ten
+  d3.select("#step10").on('stepin', function(e) {
+    d3.select("#scrollyPhoto2").attr("src", "images/sticker/map6.jpg");
+  })
+  // Entering Step eleven
+  d3.select("#step11").on('stepin', function(e) {
+    d3.select("#scrollyPhoto3").attr("src", "images/search/rEasterC.png");
+    d3.select("#scrollyPhoto3").style("transform", "scale(1)");
+  })
+  // Entering Step twelve
+  d3.select("#step12").on('stepin', function(e) {
+    d3.select("#scrollyPhoto3").attr("src", "images/search/rStopLib.png");
+  })
+    // Entering Step thirteen
+    d3.select("#step13").on('stepin',function(e) {
+    d3.select("#scrollyPhoto3").attr("src", "images/search/r1Willoughbys.png")
+    d3.select("#scrollyPhoto3").style("transform", "scale(1.5) translate(0%, -35%)");
+  })  
+  // Entering Step fourteen
+  d3.select("#step14").on('stepin', function(e) {
+    d3.select("#scrollyPhoto3").attr("src", "images/search/smap1.jpeg");
+    d3.select("#scrollyPhoto3").style("transform", "scale(1)");
+  })
+  // Entering Step fifteen
+  d3.select("#step15").on('stepin', function(e) {
+    d3.select("#scrollyPhoto3").attr("src", "images/search/smap2.jpeg");
+  })
+    // Entering Step sixteen
+    d3.select("#step16").on('stepin', function(e) {
+    d3.select("#scrollyPhoto3").attr("src", "images/search/smap3.jpeg");
+  })
+    // Entering Step seventeen
+    d3.select("#step17").on('stepin', function(e) {
+    d3.select("#scrollyPhoto3").attr("src", "images/search/smap4.jpeg");
+  })
+    // Entering Step eighteen
+    d3.select("#step18").on('stepin', function(e) {
+    d3.select("#scrollyPhoto3").attr("src", "images/search/smap5.jpeg");
+  })
+      // Entering Step nineteen
+      d3.select("#step19").on('stepin', function(e) {
+    d3.select("#scrollyPhoto3").attr("src", "images/search/fFlyer.png");
+  })
+        // Entering Step twenty
+        d3.select("#step20").on('stepin', function(e) {
+    d3.select("#scrollyPhoto5").attr("src", "images/search/smap6.jpeg");
+    d3.select("#scrollyPhoto5").style("transform", "scale(1.5) translate(-60%, 0%)");
+  })
+
+</script>
+
+<!-- LEAVE ALONE, scrolly code goes in the section below -->
+<script>
+    const scroller = scrollama();
+
+	scroller
+		.setup({  
+			step: "#scrolly .scrolly-overlay .step, #scrolly2 .scrolly-overlay .step, #scrolly3 .scrolly-overlay .step, #scrolly4 .scrolly-overlay .step, #scrolly5 .scrolly-overlay .step",
+			offset: 0.5,
+			debug: false
+		})
+		.onStepEnter(function({ element, index, direction}) {
+			const event = new CustomEvent('stepin', { detail: { direction: direction } })
+			element.dispatchEvent(event);
+		})
+		.onStepExit(function({ element, index, direction }) {
+			const event = new CustomEvent('stepout', { detail: { direction: direction } })
+			element.dispatchEvent(event);
+		});
+
+	window.addEventListener("resize", scroller.resize);
+    </script>
+
+<!-- mobile phone warning modal -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const isSmallScreen = window.innerWidth <= 900;
+
+    if (isSmallScreen) {
+      document.getElementById("deviceModal").style.display = "flex";
+    }
+
+    document
+      .getElementById("continueBtn")
+      .addEventListener("click", function () {
+        document.getElementById("deviceModal").style.display = "none";
+      });
+  });
+</script>
+
+  </body>
+</html>
