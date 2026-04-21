@@ -59,7 +59,7 @@
         line-height: 1.4;
         letter-spacing: 0.02em;
         color: rgba(255, 255, 255, 0.88);
-        max-width: 300vw;
+        max-width: 50%;
         margin-bottom: 1rem;
       }
 
@@ -167,10 +167,10 @@
       }
 
       #zoomBox, #zoomBox2, #zoomBox3, #zoomBox4, #zoomBox5 {
-          overflow: clip;    
-          margin-left: 44vw !important;
-          max-width: 53vw !important;
-          max-height: none !important;
+        overflow: clip;    
+        margin-left: 44vw !important;
+        max-width: 53vw !important;
+        max-height: none !important;
       }
       
       .photoDiv {
@@ -218,36 +218,41 @@
       color: #666;
     }
 
-    .post-call {
-      display: flex;
+    .split {
+      display: flex !important;
+      flex-direction: row !important;
       align-items: center;
       gap: 4rem;
-      max-width: 75rem;
+      max-width: 90rem;
       margin: 6rem auto;
-      padding: 0 4%;
-    }
-
-    .post-call__text {
-      flex: 1;
-      font-family: "NYTFranklinLight", sans-serif;
-    }
-
-    .post-call__text p {
-      max-width: none;
-      font-size: 1.15rem;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .post-call__image {
-      flex: 1;
-    }
-
-    .post-call__image img {
+      padding: 1rem;
       width: 100%;
-      max-width: 450px;
+    }
+
+    .split__text {
+      flex: 0 0 35rem;
+      max-width: 35rem;
+      text-align: center;
+      margin-left: 2px;
+    }
+
+    .split__text p {
+      max-width: 60%;
+      font-family: "NYTFranklinLight", sans-serif;
+      font-size: 1.25rem;
+      padding: 1rem;
+      margin: 0 auto 1.2rem auto;
+    }
+
+    .split__image {
+      flex: 0 0 53%;
+    }
+
+    .split__image img {
+      width: 100%;
       display: block;
-      margin: 0 auto;
+      max-height: 90vh;
+      object-fit: contain;
     }
 
 
@@ -258,10 +263,19 @@
 
       /* When it's less than 700 pixels wide, do normal scrollytelling */
       @media only screen and (min-width: 700px) {
-        .post-call {
+        .split {
           flex-direction: column;
-          gap: 2rem;
         }
+        .split__text {
+          flex: 1;
+        }
+        .split__image {
+          flex: 1;
+          overflow: hidden;
+        }
+        .split--tight {
+        gap: 1rem;
+      }   
 
         #scrolly.side-by-side, #scrolly2.side-by-side {
           display: flex;
@@ -286,7 +300,20 @@
           order: 1;
           flex-grow: 2;
         }
-      }
+
+        #scrolly2 .scrolly-overlay .step:last-child,
+        #scrolly3 .scrolly-overlay .step:last-child {
+          padding-bottom: 40vh;
+        }
+        .zoom-target {
+        transition: transform 1.5s ease-out;
+        }
+
+        .zoom-target.zoom-in {
+          transform: scale(1.4) translateX(-30%);
+          transform-origin: center right;
+          }
+        }
     </style>
 		<script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/3.0.4/scrollama.min.js"></script>
@@ -349,49 +376,48 @@
   <!-- ═══════════════════════════════════════
     BEAT 1: THE STICKER TRAIL
     ═══════════════════════════════════════ -->
-      <p>After taking this photo, my curiosity grew. I kept noticing these stickers, more intensely than before, and more than I could ignore. I needed to find Doug B, and the first step lay in navigating and narrowing down his territory. 
-        How many stickers were there, and could they lead me to Doug himself? I enlisted my friend Cade to traverse the city with me to find out.</p>
-    </div>
-          <section id="scrolly2">
-            <div class="sticky-thing">
-              <div id="zoomBox2">
-    <!-- Sticky Thing 5 goes below this line -->
-                <img id="scrollyPhoto2" class="photoDiv" src="images/sticker/map0.jpg">
-    <!-- Sticky Thing 5 goes above this line -->
-              </div>        
+        <p>After taking this photo, my curiosity grew. I kept noticing these stickers, more intensely than before, and more than I could ignore. I needed to find Doug B, and the first step lay in navigating and narrowing down his territory. 
+          How many stickers were there, and could they lead me to Doug himself? I enlisted my friend Cade to traverse the city with me to find out.</p>
+      </div>
+        <section id="scrolly2">
+          <div class="sticky-thing">
+            <div id="zoomBox2">
+  <!-- Sticky Thing 5 goes below this line -->
+              <img id="scrollyPhoto2" class="photoDiv" src="images/sticker/map0.jpg">
+  <!-- Sticky Thing 5 goes above this line -->
+            </div>        
+          </div>
+          <div class="scrolly-overlay">
+            <div class="step" id="step5">
+              <p>We started at the corner of Prospect and Sachem, and found our first Doug B sticker within minutes on a parking pole.</p>
+              <img src="images/sticker/firststicker.jpeg" style="max-width: 300px; margin: 0 auto" class="glow-image">
             </div>
-            <div class="scrolly-overlay">
-              <div class="step" id="step5">
-                <p>We started at the corner of Prospect and Sachem, and found our first Doug B sticker within minutes on a parking pole.</p>
-                <img src="images/sticker/firststicker.jpeg" style="max-width: 300px; margin: 0 auto" class="glow-image">
-              </div>
-              <div class="step" id="step6">
-                <p>As we continued to walk north, the numbers only bloomed.</p>
-              </div>
-              <div class="step" id="step7">
-                <p>Some stickers even appeared in tight groups right next to one another, almost impossible to miss.</p>
-                <img src="images/sticker/three.jpeg" style="max-width: 400px; margin: 0 auto" class="glow-image">
-              </div>
-              <div class="step" id="step8">
-                <p>Most of the stickers were legible, but on State street, they were different, peeled at the corners, faded, some torn down the middle. Many were almost gone, just residue left behind.
-                We didn't know if someone's been removing them, or if they're just older than the rest. Either way, State street felt like the edge of something.</p>
-                <img src="images/sticker/state.jpeg" style="max-width: 300px; margin: 0 auto" class="glow-image">
-              </div>
-              <div class="step" id="step9">
-                <p>Making our way south, the numbers continued to multiply: on lampposts, telephone poles, electrical boxes, on the sides of crosswalk buttons, when we thought it couldn't get any more populated, we encountered the Court Street bridge. 
-                  Every railing. One after another, all the way across, on both sides, filled with Doug B stickers.</p>
-                  <video src="images/sticker/bridge.mov" style="max-width: 500px; margin: 0 auto" class="glow-image" autoplay muted loop playsinline></video>
-              </div>
-              <div class="step" id="step10">
-                <p>By the end of the walk, we had counted two hundred and fifty. East Rock, Little Italy, Wooster. Just about three and a half hours, 250 stickers along a single afternoon's path. We found Doug B territory, but still no Doug B.</p>
-              </div>
-          </section>
-
+            <div class="step" id="step6">
+              <p>As we continued to walk north, the numbers only bloomed.</p>
+            </div>
+            <div class="step" id="step7">
+              <p>Some stickers even appeared in tight groups right next to one another, almost impossible to miss.</p>
+              <img src="images/sticker/three.jpeg" style="max-width: 400px; margin: 0 auto" class="glow-image">
+            </div>
+            <div class="step" id="step8">
+              <p>Most of the stickers were legible, but on State street, they were different, peeled at the corners, faded, some torn down the middle. Many were almost gone, just residue left behind.
+              We didn't know if someone's been removing them, or if they're just older than the rest. Either way, State street felt like the edge of something.</p>
+              <img src="images/sticker/state.jpeg" style="max-width: 300px; margin: 0 auto" class="glow-image">
+            </div>
+            <div class="step" id="step9">
+              <p>Making our way further south, the numbers continued to multiply: on lampposts, telephone poles, electrical boxes, on the sides of crosswalk buttons, when we thought it couldn't get any more populated, we encountered the Court Street bridge. 
+                Every railing. One after another, all the way across, on both sides, filled with Doug B stickers.</p>
+                <video src="images/sticker/bridge.mov" style="max-width: 500px; margin: 0 auto" class="glow-image" autoplay muted loop playsinline></video>
+            </div>
+            <div class="step" id="step10" style="margin-bottom: 10rem;">
+              <p>By the end of the walk, we had counted two hundred and fifty. East Rock, Little Italy, Wooster. Just about three and a half hours, 250 stickers along a single afternoon's path. We found Doug B territory, but still no Doug B.</p>
+            </div>
+        </section>
     <!-- ═══════════════════════════════════════
     BEAT 2: THE INTERNET SEARCH
     ═══════════════════════════════════════ -->
     <div style="padding: 4%;">
-      <p><p>I asked more than 30 friends, colleagues and new haven locals, and only two had noticed this sticker before, nobody knew who Doug B Candles was. In 2026, how do you sell something with just a name and a product?</p></p>
+      <p><p>I asked more than 30 friends, colleagues and New Haven locals, and only two had noticed this sticker before, nobody knew who Doug B Candles was. In 2026, how do you sell something with just a name and a product?</p></p>
       <p>I turned to the internet to find out more, and it turns out there, I wasn’t the only one curious about Doug B. Scattered across Reddit and Facebook, strangers had been quietly marveling at him for years.</p>
     </div>
     <section id="scrolly3">
@@ -428,13 +454,14 @@
         <div class="step" id="step18">
           <p>I did not call the Branford police.</p>
         </div>
-        <div class="step" id="step19">
+        <div class="step" id="step19" style="margin-bottom: 3rem;">
           <p>At last I found my most essential clue on a Facebook forum, Doug's number.</p>
         </div>
-    </section>
+      </section>
         <div style="padding: 4%;">
           <p>So I called. No answer. I called again. Still nothing. Then, less than a minute later, my phone rang.</p>
         </div>
+        
     <!-- ═══════════════════════════════════════
     BEAT 3: THE CALL & MEETING
     ═══════════════════════════════════════ -->
@@ -445,7 +472,7 @@
         <div class="msg me">Hi, this is Emma— is this Doug B?</div>
         <div class="msg them">Yes.</div>
         <div class="msg me">Great! I've been seeing your stickers around New Haven, and I was hoping to buy a candle.</div>
-        <div class="msg them">Oh yeah, I got concerned because my phone said you were in Hawaii.</div>
+        <div class="msg them">Oh yeah, I just got concerned because my phone said you were in Hawaii.</div>
         <div class="msg me">Yes, sorry, I am from Hawaii.</div>
         <div class="msg them">I thought you were spam.</div>
         <div class="msg me">No, I live in New Haven now.</div>
@@ -461,14 +488,13 @@
         <div class="msg me">Yes, but I'm more into floral scents.</div>
         <div class="msg them">Floral, okay. I just made a large batch, and they sell out quickly. I'll make you a floral one. I'll call you when it's done— should be a day or two. Thank you for calling, Emma.</div>
       </div>
-      <!-- Post-call: nonna's zoom scrollytelling -->
       <!-- Post-call: pickup confirmation -->
-      <section class="post-call">
-        <div class="post-call__text">
+      <section class="split">
+        <div class="split__text">
           <p>He called back the next day. We confirmed a cash-only 5 p.m. pickup at <span style="color: #e6ce1e">Nonna Gina's</span>, the day after that.</p>
         </div>
-        <div class="post-call__image">
-          <img src="images/search/smap6.jpeg">
+        <div class="split__image">
+          <img src="images/search/smap6.jpeg" class="photoDiv zoom-target">
         </div>
       </section>
       
@@ -477,13 +503,39 @@
     ═══════════════════════════════════════ -->
     <div style="padding: 4%;">
       <p>I brought Cade, along with our friend Kristjan to drive us out. Five p.m, Thursday, Nonna Gina's parking lot, right across from the Branford town dump, right on time, exactly where he said it would be, and Doug was already there when we pulled in. He was wearing Doug B head to toe— a "Doug B Candles" hat, t-shirt, both with that same typewriter font I'd been following around New Haven for months, and even his jeans were marked "Doug B" in sharpie. We learned Doug B was an an ex-trucker turned candle man, and ended up standing in the parking lot for almost thirty minutes takling with him about 80s music, The Cure, The Smiths, Culture Club, and his immense passion for it.
-        I asked him how the stickers got everywhere, and how he'd managed it, but he wouldn't say. "I don't know, little minions. I don't disclose the secret." he told me.
+        I asked him how the stickers got everywhere, and how he'd managed it, but he wouldn't say. "I don't know, little minions. I don't disclose the secret." he told me. "It gets people interested.
     </div>
-    <img src="images/end/meeting.jpeg" style="max-width: 600px; margin: 0 auto; display: block;">    
+    <img src="images/end/meeting.jpeg" style="max-width: 600px; margin: 0 auto; display: block;">     
+    <section class="split">
+      <div class="split__text">
+        <p>My white rose & peach candle</p>
+        <p>
+          It smells like sweet, sappy, heaven. What does it mean when a guy can build a brand this way — through analogue marketing, stickers, almost no information attached?
+          Welcome to the conclusion: the territory of Doug.
+          Doug B sells five-dollar candles out of a parking lot in Branford. His stickers are everywhere in New Haven, at least 250 of them along a single afternoon's walk, but almost nobody knows his name. In an era when every small business lives online, Doug has built a local legend the old way: one adhesive at a time, hidden in plain sight, spread mostly word of mouth. More so than the stickers, I think its Doug himself that draws people to his candles.</p>
+      </div>
+      <div class="split__image">
+        <img src="images/end/candleday.jpeg" class="photoDiv">
+      </div>
+    </section>
     <div style="padding: 4%;">
-      <p>Holding no website, phone number, or QR code, just a name, a product, and an immense air of intrigue— who is Doug B, and how is he selling these candles?</p>  
-    
+      <p>In the plastic bag I received the candle in, was a flyer from Doug B. He told me to spread the word about his candles, so if you'd like your own, contact Doug:
     </div>
+    <img src="images/end/hisflyer.jpg" style="max-width: 800px; margin: 0 auto; margin-bottom: 8rem; display: block;">    
+  <!-- ═══════════════════════════════════════
+    HERO/END CARD
+    ═══════════════════════════════════════ -->
+    <div class="hero">
+      <img class="hero__img" src="images/end/candlenight.jpeg">
+      <div class="hero__scrim"></div>
+      <div class="hero__text">
+        <h1 class="hero__headline" style="font-size: 3.2rem; margin: 1.2vh;">Credits</h1>
+        <p class="hero__subhead"> Map bases provided by Google My Maps.<br> All images, videos, and screenshots are my own. A few sections of the code were refined with assistance from Claude (Anthropic).
+          Special thanks to Professor Aaron Reiss for conferencing with me for this project and for teaching "Telling Stories With Maps" at Yale :); Tajarian Khan, whose Unit 2 work served as inspiration for portions of this project; Cade and Kristjan, for the 3.5-hour walk and the drive to Branford; and Doug B himself, for making my new favorite candle, and for his minions introducing me to him.</p>
+      </div>
+    </div>
+
+    
     <!-- Mobile Warning Modal -->
     <div id="deviceModal" class="modal">
       <div class="modal-content">
@@ -578,16 +630,11 @@
   })
     // Entering Step eighteen
     d3.select("#step18").on('stepin', function(e) {
-    d3.select("#scrollyPhoto3").attr("src", "images/search/smap5.jpeg");
+    d3.select("#scrollyPhoto3").attr("src", "images/search/smap4.jpeg");
   })
       // Entering Step nineteen
       d3.select("#step19").on('stepin', function(e) {
     d3.select("#scrollyPhoto3").attr("src", "images/search/fFlyer.png");
-  })
-        // Entering Step twenty
-        d3.select("#step20").on('stepin', function(e) {
-    d3.select("#scrollyPhoto5").attr("src", "images/search/smap6.jpeg");
-    d3.select("#scrollyPhoto5").style("transform", "scale(1.5) translate(-60%, 0%)");
   })
 
 </script>
@@ -613,6 +660,21 @@
 
 	window.addEventListener("resize", scroller.resize);
     </script>
+
+<!-- Code for Split Img Nonna's zoom -->
+<script>
+  const zoomTargets = document.querySelectorAll('.zoom-target');
+  const zoomObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('zoom-in');
+      }
+    });
+  }, { threshold: 0.4 });
+
+  zoomTargets.forEach(img => zoomObserver.observe(img));
+</script>
+
 
 <!-- mobile phone warning modal -->
 <script>
